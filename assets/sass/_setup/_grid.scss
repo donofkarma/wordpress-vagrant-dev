@@ -1,0 +1,15 @@
+/**
+* Wrappers and Grid
+**/
+
+body {
+    background: $background;
+    color: #333;
+    font: 14px/1.2em Arial, Helvetica, sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+#pageWrapper {
+    width: 960px;
+}

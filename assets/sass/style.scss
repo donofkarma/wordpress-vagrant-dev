@@ -1,0 +1,12 @@
+// Global setup
+@import "_setup/variables";
+@import "_setup/mixins";
+@import "_setup/reset";
+@import "_setup/global";
+@import "_setup/grid";
+
+// Components
+@import "_components/header";
+@import "_components/footer";
+
+// Pages
