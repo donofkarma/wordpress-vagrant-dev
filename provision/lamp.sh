@@ -96,5 +96,11 @@ then
     echo "INFO: Cleaning up..."
     apt-get clean
 
+    # Amend config file
+    #rm /etc/apache2/sites-available/default
+    #touch /etc/apache2/sites-available/def0ault
+    #echo "dave" >> /etc/apache2/sites-available/default
+    #/etc/init.d/apache2 restart
+
     echo "INFO: Provisioning Vagrant LAMP complete!"
 fi
