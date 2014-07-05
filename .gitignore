@@ -34,3 +34,5 @@ Thumbs.db
 .sass-cache/
 .vagrant/
 node_modules/
+site/wp-content/themes/custom-theme/*.css
+site/wp-content/themes/custom-theme/assets/

@@ -25,9 +25,11 @@
     
     ======================================================================================================================== */
 
-    add_theme_support('post-thumbnails');
+    add_theme_support( 'post-thumbnails' );
     
-    // register_nav_menus(array('primary' => 'Primary Navigation'));
+    register_nav_menus(
+        array( 'primary' => 'Primary Navigation' )
+    );
 
     /* ========================================================================================================================
     
@@ -36,11 +38,40 @@
     ======================================================================================================================== */
 
     // remove the Wordpress version number
-    remove_action('wp_head', 'wp_generator');
+    remove_action( 'wp_head', 'wp_generator' );
 
-    // add_action( 'wp_enqueue_scripts', 'starkers_script_enqueuer' );
-
+    // add slug to the body class
     add_filter( 'body_class', array( 'Starkers_Utilities', 'add_slug_to_body_class' ) );
+
+    // make links relative
+    function rw_relative_urls() {
+        // Don't do anything if:
+        // - In feed
+        // - In sitemap by WordPress SEO plugin
+        if ( is_feed() || get_query_var( 'sitemap' ) )
+            return;
+
+        $filters = array(
+            'attachment_link',
+            'day_link',
+            'get_comments_pagenum_link',
+            'get_pagenum_link',
+            'get_shortlink',
+            'month_link',
+            'page_link',
+            'post_link',
+            'post_type_archive_link',
+            'post_type_link',
+            'search_link',
+            'term_link',
+            'year_link'
+        );
+
+        foreach ( $filters as $filter ) {
+            add_filter( $filter, 'wp_make_link_relative' );
+        }
+    }
+    add_action( 'template_redirect', 'rw_relative_urls' );
 
     /* ========================================================================================================================
     
@@ -50,28 +81,6 @@
     
     ======================================================================================================================== */
 
-
-
-    /* ========================================================================================================================
-    
-    Scripts
-    
-    ======================================================================================================================== */
-
-    /**
-     * Add scripts via wp_head()
-     *
-     * @return void
-     * @author Keir Whitaker
-     */
-
-    // function starkers_script_enqueuer() {
-    //  wp_register_script( 'site', get_template_directory_uri().'/js/site.js', array( 'jquery' ) );
-    //  wp_enqueue_script( 'site' );
-
-    //  wp_register_style( 'screen', get_stylesheet_directory_uri().'/style.css', '', '', 'screen' );
-    //  wp_enqueue_style( 'screen' );
-    // }
 
     /* ========================================================================================================================
     
