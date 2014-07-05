@@ -13,13 +13,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-        <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/images/favicon.ico"/>
+        <link rel="shortcut icon" href="<?php echo wp_make_link_relative( get_template_directory_uri() ); ?>/images/favicon.ico"/>
 
         <!--[if gte IE 9]><!-->
-            <link href="<?php bloginfo( 'stylesheet_url' ); ?>" media="screen" rel="stylesheet" />
+            <link href="<?php echo wp_make_link_relative( get_template_directory_uri() ); ?>/style.css" media="screen" rel="stylesheet" />
         <!--<![endif]-->
         <!--[if lt IE 9]>
-            <link href="<?php bloginfo( 'stylesheet_directory' ); ?>/ie.css" media="screen" rel="stylesheet" />
+            <link href="<?php echo wp_make_link_relative( get_template_directory_uri() ); ?>/ie.css" media="screen" rel="stylesheet" />
 
             <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
