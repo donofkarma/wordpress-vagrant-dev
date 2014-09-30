@@ -38,14 +38,15 @@ module.exports = function(grunt) {
             },
             all: [
                 'Gruntfile.js',
-                'assets/js/*.js',
+                'src/js/script.js',
+                'src/js/modules/*.js'
             ]
         },
         sass: {
             main: {
                 files: {
-                    'site/wp-content/themes/custom-theme/style.css': 'assets/sass/style.scss',
-                    'site/wp-content/themes/custom-theme/ie.css' : 'assets/sass/ie.scss'
+                    'site/wp-content/themes/custom-theme/style.css': 'src/sass/style.scss',
+                    'site/wp-content/themes/custom-theme/ie.css' : 'src/sass/ie.scss'
                 }
             }
         },
@@ -67,28 +68,41 @@ module.exports = function(grunt) {
                 }
             },
             deploy: {
-                files: {
-                    'site/wp-content/themes/custom-theme/assets/js/libs.js': ['assets/js/libs/**/*.js'],
-                    'site/wp-content/themes/custom-theme/assets/js/script.js': ['assets/js/script.js']
-                }
+                'site/wp-content/themes/custom-theme/assets/js/libs.js': [
+                    'src/js/libs/jquery/*.js',
+                    'src/js/libs/touch/*.js',
+                    'src/js/libs/jquery-plugins/*.js'
+                ],
+                'site/wp-content/themes/custom-theme/assets/js/script.js': [
+                    'src/js/script.js',
+                    'src/js/modules/*.js'
+                ]
+            }
+        },
+        clean: {
+            fonts: {
+                src: ['site/wp-content/themes/custom-theme/assets/fonts/*']
+            },
+            images: {
+                src: ['site/wp-content/themes/custom-theme/assets/images/*']
             }
         },
         copy: {
-            // fonts: {
-            //     files: [
-            //         {
-            //             expand: true,
-            //             cwd: 'assets/fonts/',
-            //             src: ['**'],
-            //             dest: 'site/wp-content/themes/custom-theme/assets/fonts/'
-            //         }
-            //     ]
-            // },
+            fonts: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/fonts/',
+                        src: ['**'],
+                        dest: 'site/wp-content/themes/custom-theme/assets/fonts/'
+                    }
+                ]
+            },
             images: {
                 files: [
                     {
                         expand: true,
-                        cwd: 'assets/images/public/',
+                        cwd: 'src/images/public/',
                         src: ['**'],
                         dest: 'site/wp-content/themes/custom-theme/assets/images/'
                     }
@@ -96,18 +110,27 @@ module.exports = function(grunt) {
             }
         },
         watch: {
+            fonts: {
+                files: ['src/fonts/**/*.*'],
+                tasks: ['clean:fonts', 'copy:fonts']
+            },
+            images: {
+                files: ['src/images/public/**/*.*'],
+                tasks: ['clean:images', 'copy:images']
+            },
             sass: {
-                files: ['assets/sass/**/*.scss'],
+                files: ['src/sass/**/*.scss'],
                 tasks: ['sass', 'cssmin']
             },
-            lint: {
+            script: {
                 files: '<%= jshint.all %>',
-                tasks: 'jshint'
+                tasks: ['jshint', 'uglify']
             }
         }
     });
 
     // Load tasks
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -117,6 +140,6 @@ module.exports = function(grunt) {
 
     // // Default task(s)
     grunt.registerTask('test', ['jshint']);
-    grunt.registerTask('build', ['sass', 'cssmin', 'uglify', 'copy']);
+    grunt.registerTask('build', ['sass', 'cssmin', 'uglify', 'clean', 'copy']);
     grunt.registerTask('default', ['test', 'build']);
 };

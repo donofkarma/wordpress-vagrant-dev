@@ -10,7 +10,7 @@ Included versions
 ---------------------
 
 ### Wordpress
-- Wordpress v3.8.1
+- Wordpress v4.0
 - Starkers v4.0
 
 ### Libraries
