@@ -1,0 +1,20 @@
+{
+    "name": "wordpress-vagrant-starkers",
+    "description": "Baseline Wordpress build using Vagrant and Starkers",
+    "version": "0.0.1",
+    "author": "Jasal Vadgama - http://blacklabelcreative.com/",
+    "private": true,
+    "licenses": [
+        {
+            "type": "GNU General Public License v2 or later",
+            "url": "http://www.gnu.org/licenses/gpl-2.0.html"
+        }
+    ],
+    "main": "/",
+    "dependencies": {
+        "jquery": "2.1.x",
+        "jquery.hammer.js": "2.0.x"
+    },
+    "devDependencies": {
+    }
+}

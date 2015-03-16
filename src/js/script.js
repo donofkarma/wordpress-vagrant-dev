@@ -1,30 +1,30 @@
 /*jslint eqeqeq: true, undef: true */
 /*global $, window, console, alert */
 
-var LocalCharity = LocalCharity || {};
+var CustomTheme = CustomTheme || {};
 
-LocalCharity = (function() {
-	// PRIVATE VARIABLES
+CustomTheme.Main = (function() {
+    // PRIVATE VARIABLES
 
-	// PRIVATE FUNCTIONS
+    // PRIVATE FUNCTIONS
 
-	// PUBLIC METHODS
-	return {
-		init: function() {
-			// DOM ready
-		},
-		pageInit: function() {
-			// page load
-		}
-	};
+    // PUBLIC METHODS
+    return {
+        init: function() {
+            // DOM ready
+        },
+        pageInit: function() {
+            // page load
+        }
+    };
 }());
 
 // ON DOM READY
 $(function() {
-	LocalCharity.init();
+    CustomTheme.Main.init();
 });
 
 // ON PAGE LOAD
 $(window).load(function() {
-	LocalCharity.pageInit();
+    CustomTheme.Main.pageInit();
 });

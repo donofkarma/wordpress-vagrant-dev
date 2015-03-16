@@ -33,6 +33,7 @@ Thumbs.db
 .bin/
 .sass-cache/
 .vagrant/
+bower_components/
 node_modules/
 site/wp-content/themes/custom-theme/*.css
 site/wp-content/themes/custom-theme/assets/

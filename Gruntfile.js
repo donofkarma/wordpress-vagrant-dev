@@ -69,9 +69,8 @@ module.exports = function(grunt) {
             },
             deploy: {
                 'site/wp-content/themes/custom-theme/assets/js/libs.js': [
-                    'src/js/libs/jquery/*.js',
-                    'src/js/libs/touch/*.js',
-                    'src/js/libs/jquery-plugins/*.js'
+                    'bower_components/jquery/dist/jquery.min.js',
+                    'bower_components/jquery.hammer.js/jquery.hammer.js'
                 ],
                 'site/wp-content/themes/custom-theme/assets/js/script.js': [
                     'src/js/script.js',
