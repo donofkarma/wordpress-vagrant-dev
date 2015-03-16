@@ -7,13 +7,13 @@
     @if $isOldIE == false {
         // add the correct media query
         @if $breakpoint == small {
-            @media (screen and min-width: $smallScreen) { @content; }
+            @media screen and (min-width: $smallScreen) { @content; }
         }
         @else if $breakpoint == medium {
-            @media (screen and min-width: $mediumScreen) { @content; }
+            @media screen and (min-width: $mediumScreen) { @content; }
         }
         @else if $breakpoint == large {
-            @media (screen and min-width: $largeScreen) { @content; }
+            @media screen and (min-width: $largeScreen) { @content; }
         }
     }
     @else {
