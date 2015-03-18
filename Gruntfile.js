@@ -44,6 +44,9 @@ module.exports = function(grunt) {
             ]
         },
         sass: {
+            options: {
+                sourcemap: 'none'
+            },
             main: {
                 files: {
                     'site/wp-content/themes/<%= meta.theme_dir %>/style.css': 'src/sass/style.scss',
@@ -156,7 +159,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-contrib-sass');
 
     // // Default task(s)
     grunt.registerTask('test', ['jshint']);
