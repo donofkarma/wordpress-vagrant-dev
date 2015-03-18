@@ -5,6 +5,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         meta: {
+            theme_dir: 'custom-theme',
             css_banner: '/*\n' +
                 'Theme Name: Custom Theme\n' +
                 'Theme URI: http://[YOUR URL]/\n' +
@@ -45,8 +46,8 @@ module.exports = function(grunt) {
         sass: {
             main: {
                 files: {
-                    'site/wp-content/themes/custom-theme/style.css': 'src/sass/style.scss',
-                    'site/wp-content/themes/custom-theme/ie.css' : 'src/sass/ie.scss'
+                    'site/wp-content/themes/<%= meta.theme_dir %>/style.css': 'src/sass/style.scss',
+                    'site/wp-content/themes/<%= meta.theme_dir %>/ie.css' : 'src/sass/ie.scss'
                 }
             }
         },
@@ -56,8 +57,8 @@ module.exports = function(grunt) {
                     banner: '<%= meta.css_banner %>'
                 },
                 files: {
-                    'site/wp-content/themes/custom-theme/style.css': ['site/wp-content/themes/custom-theme/style.css'],
-                    'site/wp-content/themes/custom-theme/ie.css': ['site/wp-content/themes/custom-theme/ie.css']
+                    'site/wp-content/themes/<%= meta.theme_dir %>/style.css': ['site/wp-content/themes/<%= meta.theme_dir %>/style.css'],
+                    'site/wp-content/themes/<%= meta.theme_dir %>/ie.css': ['site/wp-content/themes/<%= meta.theme_dir %>/ie.css']
                 }
             }
         },
@@ -67,24 +68,44 @@ module.exports = function(grunt) {
                     except: ['jQuery']
                 }
             },
+            libraries: {
+                files: {
+                    'site/wp-content/themes/<%= meta.theme_dir %>/assets/js/libs.js': [
+                        'bower_components/jquery/dist/jquery.min.js',
+                        'bower_components/jquery.hammer.js/jquery.hammer.js'
+                    ]
+                }
+            },
+            develop: {
+                options: {
+                    mangle: false
+                },
+                files: {
+                    'site/wp-content/themes/<%= meta.theme_dir %>/assets/js/script.js': [
+                        'src/js/script.js',
+                        'src/js/modules/*.js'
+                    ]
+                }
+            },
             deploy: {
-                'site/wp-content/themes/custom-theme/assets/js/libs.js': [
-                    'bower_components/jquery/dist/jquery.min.js',
-                    'bower_components/jquery.hammer.js/jquery.hammer.js'
-                ],
-                'site/wp-content/themes/custom-theme/assets/js/script.js': [
-                    'src/js/script.js',
-                    'src/js/modules/*.js'
-                ]
-            }
+                files: {
+                    'site/wp-content/themes/<%= meta.theme_dir %>/assets/js/script.js': [
+                        'src/js/script.js',
+                        'src/js/modules/*.js'
+                    ]
+                }
+            },
         },
         clean: {
             fonts: {
-                src: ['site/wp-content/themes/custom-theme/assets/fonts/*']
+                src: ['site/wp-content/themes/<%= meta.theme_dir %>/assets/fonts/*']
             },
             images: {
-                src: ['site/wp-content/themes/custom-theme/assets/images/*']
-            }
+                src: ['site/wp-content/themes/<%= meta.theme_dir %>/assets/images/*']
+            },
+            script: {
+                src: ['site/wp-content/themes/<%= meta.theme_dir %>/assets/js/*']
+            },
         },
         copy: {
             fonts: {
@@ -93,7 +114,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'src/fonts/',
                         src: ['**'],
-                        dest: 'site/wp-content/themes/custom-theme/assets/fonts/'
+                        dest: 'site/wp-content/themes/<%= meta.theme_dir %>/assets/fonts/'
                     }
                 ]
             },
@@ -103,7 +124,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'src/images/public/',
                         src: ['**'],
-                        dest: 'site/wp-content/themes/custom-theme/assets/images/'
+                        dest: 'site/wp-content/themes/<%= meta.theme_dir %>/assets/images/'
                     }
                 ]
             }
@@ -123,7 +144,7 @@ module.exports = function(grunt) {
             },
             script: {
                 files: '<%= jshint.all %>',
-                tasks: ['jshint', 'uglify']
+                tasks: ['jshint', 'uglify:develop']
             }
         }
     });
@@ -139,6 +160,7 @@ module.exports = function(grunt) {
 
     // // Default task(s)
     grunt.registerTask('test', ['jshint']);
-    grunt.registerTask('build', ['sass', 'cssmin', 'uglify', 'clean', 'copy']);
+    grunt.registerTask('build', ['clean', 'copy', 'sass', 'cssmin', 'uglify:libraries', 'uglify:develop']);
+    grunt.registerTask('deploy', ['build', 'uglify:deploy']);
     grunt.registerTask('default', ['test', 'build']);
 };
