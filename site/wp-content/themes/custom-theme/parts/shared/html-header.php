@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-<!--[if lt IE 8]><html class="ie lt-ie8 lt-ie9 lt-ie10 lt-ie11"> <![endif]-->
-<!--[if IE 8]>   <html class="ie ie8 lt-ie9 lt-ie10 lt-ie11"> <![endif]-->
-<!--[if IE 9]>   <html class="ie ie9 lt-ie10 lt-ie11"> <![endif]-->
-<!--[if IE 10]>  <html class="ie ie10 lt-ie11"> <![endif]-->
-<!--[if IE 11]>  <html class="ie ie11"> <![endif]-->
+<!--[if lte IE 9]>   <html class="ie lt-ie10"> <![endif]-->
 <!--[if !IE]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
     <head>
         <title><?php bloginfo( 'name' ); ?><?php wp_title( '|' ); ?></title>
 
         <meta charset="<?php bloginfo( 'charset' ); ?>" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
         <link rel="shortcut icon" href="<?php echo wp_make_link_relative( get_template_directory_uri() ); ?>/images/favicon.ico"/>

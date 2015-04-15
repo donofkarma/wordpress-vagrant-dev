@@ -74,8 +74,7 @@ module.exports = function(grunt) {
             libraries: {
                 files: {
                     'site/wp-content/themes/<%= meta.theme_dir %>/assets/js/libs.js': [
-                        'bower_components/jquery/dist/jquery.min.js',
-                        'bower_components/jquery.hammer.js/jquery.hammer.js'
+                        'bower_components/jquery/dist/jquery.min.js'
                     ]
                 }
             },
@@ -157,9 +156,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-sass');
 
     // // Default task(s)
     grunt.registerTask('test', ['jshint']);

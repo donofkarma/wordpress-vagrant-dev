@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # node.js settings
-NODE_VERSION=0.10.29
+NODE_VERSION=0.10.38
 NODE_SOURCE=http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.gz
 
 # If apache2 does not exist
@@ -10,16 +10,19 @@ echo "INFO: Provisioning Wordpress Vagrant LAMP"
 # Update apt-get
 echo "INFO: Updating apt-get..."
 apt-get update
+echo "INFO: Updating apt-get... Done."
 
 # Install git
 echo "INFO: Installing git..."
 apt-get install -y git-core
+echo "INFO: Installing git... Done."
 
 # Install MySQL
 echo "INFO: Installing mysql..."
 echo "mysql-server-5.5 mysql-server/root_password password vagrant" | debconf-set-selections
 echo "mysql-server-5.5 mysql-server/root_password_again password vagrant" | debconf-set-selections
 apt-get install -y mysql-server
+echo "INFO: Installing mysql... Done."
 
 # Install apache2
 echo "INFO: Installing apache2..."
@@ -27,14 +30,17 @@ apt-get install -y apache2
 rm -rf /var/www
 ln -fs /vagrant/site /var/www
 echo "/var/www === /vagrant/site"
+echo "INFO: Installing apache2... Done."
 
 # Install PHP5
 echo "INFO: Installing php5..."
 apt-get install -y php5 libapache2-mod-php5 php-apc php5-mysql php5-dev
+echo "INFO: Installing php5... Done."
 
 # Install OpenSSL
 echo "INFO: Installing OpenSSL..."
 apt-get install -y openssl
+echo "INFO: Installing OpenSSL... Done."
 
 # If phpmyadmin does not exist
 if [ ! -f /etc/phpmyadmin/config.inc.php ];
@@ -64,15 +70,19 @@ then
     echo 'dbconfig-common dbconfig-common/password-confirm password vagrant' | debconf-set-selections
 
     apt-get install -y phpmyadmin
+
+    echo "INFO: Installing phpmyadmin... Done."
 fi
 
 # Enable mod_rewrite
 echo "INFO: Enabling mod_rewrite..."
 a2enmod rewrite
+echo "INFO: Enabling mod_rewrite... Done."
 
 # Enable SSL
 echo "INFO: Enabling SSL..."
 a2enmod ssl
+echo "INFO: Enabling SSL... Done."
 
 # Update vhosts file
 echo "INFO: Updating vhosts..."
@@ -104,9 +114,12 @@ EOF
 
 echo "${VHOST}" > /etc/apache2/sites-available/default
 
+echo "INFO: Updating vhosts... Done."
+
 # Restart services
 echo "INFO: Restarting apache..."
 /etc/init.d/apache2 restart
+echo "INFO: Restarting apache... Done."
 
 # Install node.js
 echo "INFO: Installing node.js $NODE_VERSION..."
@@ -115,40 +128,11 @@ apt-get install -y python-software-properties python g++ make
 add-apt-repository -y ppa:chris-lea/node.js
 apt-get update
 apt-get install -y nodejs
+echo "INFO: Installing node.js $NODE_VERSION... Done."
 
 # Clean up apt-get
 echo "INFO: Cleaning up apt-get..."
 apt-get clean
-
-# More to the /vagrant directory
-cd /vagrant
-
-# Install package.json dependencies
-echo "INFO: Installing package.json..."
-npm install
-
-# Install Bundler
-echo "INFO: Installing Bundler..."
-gem install bundler
-
-# Install gems
-echo "INFO: Installing Ruby gems..."
-bundle install
-
-# Install bower
-echo "INFO: Installing bower..."
-npm install -g bower
-
-# Install bower dependencies
-echo "INFO: Installing bower dependencies..."
-bower install --allow-root
-
-# Install Grunt.js CLI
-echo "INFO: Installing Grunt.js CLI..."
-npm install -g grunt-cli
-
-# build files
-echo "INFO: Building assets..."
-grunt build
+echo "INFO: Cleaning up apt-get... Done."
 
 echo "INFO: Provisioning Wordpress Vagrant LAMP complete!"

@@ -1,7 +1,7 @@
 {
     "name": "wordpress-vagrant-starkers",
     "description": "Baseline Wordpress build using Vagrant and Starkers",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "author": "Jasal Vadgama - http://blacklabelcreative.com/",
     "repository": {
         "type": "git",
@@ -16,7 +16,8 @@
     "main": "/",
     "scripts": {
         "test": "grunt test",
-        "deploy": "grunt build",
+        "build": "grunt build",
+        "deploy": "grunt deploy",
         "all": "grunt"
     },
     "engines": {
@@ -28,8 +29,8 @@
         "grunt-contrib-copy": "0.6.x",
         "grunt-contrib-cssmin": "0.10.x",
         "grunt-contrib-jshint": "0.11.x",
-        "grunt-contrib-sass": "0.9.x",
         "grunt-contrib-uglify": "0.7.x",
-        "grunt-contrib-watch": "0.6.x"
+        "grunt-contrib-watch": "0.6.x",
+        "grunt-sass": "0.18.x"
     }
 }

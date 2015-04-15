@@ -20,7 +20,6 @@ Installation
 To use this you will need:
 - [Virtualbox](https://www.virtualbox.org/)
 - [Vagrant](https://www.vagrantup.com/)
-- Ruby (recommended)
 - [Node.js](https://nodejs.org/) (recommended)
 - [Bower](http://bower.io/) (recommended)
 - [Grunt.js](http://gruntjs.com/) (recommended)
@@ -31,7 +30,13 @@ Once these have been installed clone the repo, `cd` into the directory, and star
 vagrant up
 ```
 
-This will create a full LAMP stack and install all the external dependencies for building the theme's assets.
+Now, install the dependencies with:
+
+```shell
+npm install && bower install
+```
+
+Once that's done run either the `grunt build` or `grunt deploy` task below to generate the assets for the theme.
 
 
 ### Database
@@ -62,13 +67,8 @@ grunt (test|build|deploy)
 3. deploy: runs the build task then minifies the CSS and JS
 4. default: runs the test and then build tasks
 
-#### NOTE
-It is possible to run the entire project from within the Vagrant VM. Building the Sass and JS is noticeably slower but it means there are no other dependencies to install on the host machine.
 
-In order to run the tasks you must run `vagrant ssh` to log in to the VM and then `cd /vagrant` into the root of the project. All of the tasks can be used as described above.
-
-
-Release History
+To Do
 ---------------------
 
 - Add a better media query mixin
@@ -84,4 +84,4 @@ For a full release history, see the [Changelog](https://github.com/donofkarma/wo
 License
 ---------------------
 
-MIT: [https://github.com/donofkarma/wordpress-vagrant-starkers/blob/master/LICENSE-MIT](https://github.com/donofkarma/wordpress-vagrant-starkers/blob/master/LICENSE-MIT)
+MIT: [https://github.com/donofkarma/wordpress-vagrant-starkers/blob/master/LICENSE-MIT](https://github.com/donofkarma/wordpress-vagrant-starkers/blob/master/LICENSE_MIT)
