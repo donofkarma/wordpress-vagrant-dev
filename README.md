@@ -1,4 +1,4 @@
-Wordpress Vagrant Starkers v0.1.0
+Wordpress Vagrant Starkers v0.2.0
 ====================
 
 Baseline Wordpress and Starkers theme build using Vagrant.
@@ -10,7 +10,7 @@ Included versions
 ---------------------
 
 ### Wordpress
-- Wordpress v4.1.1
+- Wordpress v4.4.2
 - Starkers v4.0
 
 

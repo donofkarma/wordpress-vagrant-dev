@@ -13,3 +13,7 @@ Changelog
 - Removing Ruby Sass dependancy in favour of libsass
 - Removing jquery.hammer from bower.json
 - Updating `<html>` conditional comments
+
+### 0.2.0
+- Upgrading to Wordpress 4.4.2
+- Adding .htaccess file

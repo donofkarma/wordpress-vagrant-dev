@@ -1,30 +1,18 @@
-/*jslint eqeqeq: true, undef: true */
-/*global $, window, console, alert */
+/* jslint unused: false */
 
-var CustomTheme = CustomTheme || {};
+"use strict";
 
-CustomTheme.Main = (function() {
-    // PRIVATE VARIABLES
+// Globals
 
-    // PRIVATE FUNCTIONS
+// Main app
+window.CustomTheme = (function() {
 
-    // PUBLIC METHODS
-    return {
-        init: function() {
-            // DOM ready
-        },
-        pageInit: function() {
-            // page load
-        }
-    };
-}());
+    // DOM ready
+    // $(function() {
+    // });
 
-// ON DOM READY
-$(function() {
-    CustomTheme.Main.init();
-});
+    // Page ready
+    // $(window).on('load', function() {
+    // });
 
-// ON PAGE LOAD
-$(window).load(function() {
-    CustomTheme.Main.pageInit();
-});
+})();

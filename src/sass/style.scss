@@ -1,12 +1,24 @@
-// Global setup
+/* Setup */
+// Third party
+@import "../../bower_components/normalize-scss/_normalize.scss";
+
+// Site
 @import "_setup/variables";
 @import "_setup/mixins";
-@import "_setup/reset";
-@import "_setup/global";
+@import "_setup/media-queries";
 @import "_setup/grid";
+@import "_setup/fonts";
+@import "_setup/icons";
+@import "_setup/base";
 
-// Components
-@import "_components/header";
-@import "_components/footer";
 
-// Pages
+/* Shared */
+@import "_shared/shared";
+
+
+/* Components */
+@import "_modules/modules";
+
+
+/* Pages */
+@import "_pages/pages";

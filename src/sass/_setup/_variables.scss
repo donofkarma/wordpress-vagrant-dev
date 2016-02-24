@@ -1,13 +1,51 @@
-/**
-* Variables
-**/
+/* Variables */
+$assetPath: '/wp-content/themes/custom-theme/assets/';
+$fontPath: $assetPath + 'fonts/';
+$imagePath: $assetPath + 'images/';
 
-// Media Queries
-$smallScreen: 479px;
-$mediumScreen: 767px;
-$largeScreen: 959px;
-$isOldIE: false !default;
 
-// Colours
-$background: #fff;
-$links: #000;
+/* Breakpoints */
+$extraSmallScreen: 320px;
+$smallScreen: 480px;
+$mediumScreen: 768px;
+$largeScreen: 1024px;
+$wideScreen: 1200px;
+
+
+/* Bootstrap Grid */
+$grid-columns: 12;
+$grid-gutter-width: 50px;
+
+$screen-sm-min: $smallScreen;
+$screen-md-min: $mediumScreen;
+$screen-lg-min: $largeScreen;
+
+$container-sm: $smallScreen + $grid-gutter-width;
+$container-md: $mediumScreen + $grid-gutter-width;
+$container-lg: $largeScreen + $grid-gutter-width;
+
+
+/* Colours */
+// brand
+
+// general
+$black: #000;
+$grey-medium: #999;
+$grey-dark: #333;
+$white: #fff;
+
+// style
+$background: $white;
+$copy: $grey-dark;
+$error-message: #ff0000;
+$placeholder-copy: $grey-medium;
+
+
+/* Animation */
+$transition-duration: 0.25s;
+$transition-easing: ease-out;
+
+
+/* Fonts */
+$BodyCopy: Helvetica, Arial, sans-serif;
+$HeadingCopy: Helvetica, Arial, sans-serif;
