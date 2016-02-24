@@ -5,7 +5,7 @@
     "author": "Jasal Vadgama - http://blacklabelcreative.com/",
     "repository": {
         "type": "git",
-        "url": "tbc"
+        "url": "git@github.com:donofkarma/wordpress-vagrant-starkers.git"
     },
     "licenses": [
         {
@@ -25,7 +25,7 @@
         "copy:images": "mkdir -p $npm_package_config_theme/images && cp -r ./src/images/public/ $npm_package_config_theme/images/",
 
         "build:css": "./node_modules/.bin/node-sass ./src/sass/ --output $npm_package_config_theme/css/",
-        "build:script": "mkdir -p $npm_package_config_theme/js && babel ./src/js/script.js --out-file $npm_package_config_theme/js/script.js",
+        "build:script": "npm run test:script && mkdir -p $npm_package_config_theme/js && ./node_modules/.bin/babel ./src/js/script.js --out-file $npm_package_config_theme/js/script.js",
 
         "test:script": "./node_modules/.bin/eslint ./src/js/**",
 
@@ -34,12 +34,13 @@
         "postbuild": "",
 
         "deploy:css": "./node_modules/.bin/cleancss -o $npm_package_config_theme/css/style.css $npm_package_config_theme/css/style.css",
+        "deploy:script": "./node_modules/.bin/uglifyjs --compress --mangle --stats --output $npm_package_config_theme/js/script.js -- $npm_package_config_theme/js/script.js",
 
         "predeploy": "npm run build",
-        "deploy": "npm run deploy:css",
+        "deploy": "npm run deploy:css && npm run deploy:script",
 
-        "watch:css": "onchange './src/sass/**/*' -- echo '{{changed}} was changed' && npm run build:css",
-        "watch:script": "onchange './src/js/**/*' -- echo '{{changed}} was changed' && npm run test:script && npm run build:script",
+        "watch:css": "onchange './src/sass/**/*' -- npm run build:css",
+        "watch:script": "onchange './src/js/**/*' -- npm run build:script",
 
         "prewatch": "npm run build",
         "watch": "parallelshell 'npm run watch:css' 'npm run watch:script'"
@@ -52,10 +53,10 @@
         "babel-preset-es2015": "6.5.x",
         "clean-css": "3.4.x",
         "eslint": "2.2.x",
-        "jquery": "2.1.x",
         "node-sass": "3.4.x",
         "onchange": "2.0.x",
         "parallelshell": "2.0.x",
-        "rimraf": "2.5.x"
+        "rimraf": "2.5.x",
+        "uglify-js": "2.6.x"
     }
 }

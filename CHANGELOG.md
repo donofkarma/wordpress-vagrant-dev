@@ -17,3 +17,7 @@ Changelog
 ### 0.2.0
 - Upgrading to Wordpress 4.4.2
 - Adding .htaccess file
+- Updating SASS layout
+- Switching to ES6
+- Changing build from Grunt to npm scripts
+- Removing jQuery

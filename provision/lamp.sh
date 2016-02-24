@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# node.js settings
-NODE_VERSION=0.10.38
-NODE_SOURCE=http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.gz
-
 # If apache2 does not exist
 echo "INFO: Provisioning Wordpress Vagrant LAMP"
 
@@ -120,15 +116,6 @@ echo "INFO: Updating vhosts... Done."
 echo "INFO: Restarting apache..."
 /etc/init.d/apache2 restart
 echo "INFO: Restarting apache... Done."
-
-# Install node.js
-echo "INFO: Installing node.js $NODE_VERSION..."
-apt-get update
-apt-get install -y python-software-properties python g++ make
-add-apt-repository -y ppa:chris-lea/node.js
-apt-get update
-apt-get install -y nodejs
-echo "INFO: Installing node.js $NODE_VERSION... Done."
 
 # Clean up apt-get
 echo "INFO: Cleaning up apt-get..."
