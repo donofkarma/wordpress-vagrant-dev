@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # If apache2 does not exist
-echo "INFO: Provisioning Wordpress Vagrant LAMP"
+echo "INFO: Provisioning WordPress Vagrant LAMP"
 
 # Update apt-get
 echo "INFO: Updating apt-get..."
@@ -13,14 +13,7 @@ echo "INFO: Installing git..."
 apt-get install -y git-core
 echo "INFO: Installing git... Done."
 
-# Install MySQL
-echo "INFO: Installing mysql..."
-echo "mysql-server-5.5 mysql-server/root_password password vagrant" | debconf-set-selections
-echo "mysql-server-5.5 mysql-server/root_password_again password vagrant" | debconf-set-selections
-apt-get install -y mysql-server
-echo "INFO: Installing mysql... Done."
-
-# Install apache2
+# Install Apache
 echo "INFO: Installing apache2..."
 apt-get install -y apache2
 rm -rf /var/www
@@ -28,15 +21,36 @@ ln -fs /vagrant/site /var/www
 echo "/var/www === /vagrant/site"
 echo "INFO: Installing apache2... Done."
 
+# Enable mod_rewrite
+echo "INFO: Enabling mod_rewrite..."
+a2enmod rewrite
+echo "INFO: Enabling mod_rewrite... Done."
+
+# Update vhosts file
+echo "INFO: Updating vhosts..."
+cp /vagrant/provision/vhosts-default.conf /etc/apache2/sites-available/default
+echo "INFO: Updating vhosts... Done."
+
 # Install PHP5
 echo "INFO: Installing php5..."
 apt-get install -y php5 libapache2-mod-php5 php-apc php5-mysql php5-dev
 echo "INFO: Installing php5... Done."
 
-# Install OpenSSL
-echo "INFO: Installing OpenSSL..."
-apt-get install -y openssl
-echo "INFO: Installing OpenSSL... Done."
+# Install Composer if it is not yet available.
+if [[ ! -n "$(composer --version --no-ansi | grep 'Composer version')" ]]; then
+    echo "INFO: Installing Composer..."
+    curl -sS "https://getcomposer.org/installer" | php
+    chmod +x "composer.phar"
+    mv "composer.phar" "/usr/local/bin/composer"
+    echo "INFO: Installing Composer... Done"
+fi
+
+# Install MySQL
+echo "INFO: Installing mysql..."
+echo "mysql-server-5.5 mysql-server/root_password password vagrant" | debconf-set-selections
+echo "mysql-server-5.5 mysql-server/root_password_again password vagrant" | debconf-set-selections
+apt-get install -y mysql-server
+echo "INFO: Installing mysql... Done."
 
 # If phpmyadmin does not exist
 if [ ! -f /etc/phpmyadmin/config.inc.php ];
@@ -68,58 +82,65 @@ then
     apt-get install -y phpmyadmin
 
     echo "INFO: Installing phpmyadmin... Done."
+
+    echo "INFO: Setting up DB..."
+    mysql -u "root" -p"vagrant" < "/vagrant/provision/db.sql"
+    echo "INFO: Setting up DB... Done"
 fi
 
-# Enable mod_rewrite
-echo "INFO: Enabling mod_rewrite..."
-a2enmod rewrite
-echo "INFO: Enabling mod_rewrite... Done."
+mkdir /vagrant/tools
 
-# Enable SSL
-echo "INFO: Enabling SSL..."
-a2enmod ssl
-echo "INFO: Enabling SSL... Done."
+# Install Composer
+if [[ ! -n "$(composer --version --no-ansi | grep 'Composer version')" ]]; then
+    echo "INFO: Installing Composer..."
 
-# Update vhosts file
-echo "INFO: Updating vhosts..."
+    curl -sS "https://getcomposer.org/installer" | php
+    chmod +x "composer.phar"
+    mv "composer.phar" "/usr/local/bin/composer"
 
-VHOST=$(cat <<EOF
-<VirtualHost *:80>
-    DocumentRoot /var/www
-    <Directory />
-        Options FollowSymLinks
-        AllowOverride All
-    </Directory>
-    <Directory /var/www>
-        Options Indexes FollowSymLinks MultiViews
-        AllowOverride All
-        Order allow,deny
-        allow from all
-    </Directory>
+    echo "INFO: Installing Composer... Done"
+fi
 
-    ErrorLog ${APACHE_LOG_DIR}/error.log
+# Install WP-CLI
+if [[ ! -d "/vagrant/tools/wp-cli" ]]; then
+    echo -e "INFO: Installing WP-CLI..."
+    git clone "https://github.com/wp-cli/wp-cli.git" "/vagrant/tools/wp-cli"
+    cd /vagrant/tools/wp-cli
+    composer install
+    # Link `wp` to the `/usr/local/bin` directory
+    ln -sf "/vagrant/tools/wp-cli/bin/wp" "/usr/local/bin/wp"
+    echo -e "INFO: Installing WP-CLI... Done"
+fi
 
-    # Possible values include: debug, info, notice, warn, error, crit,
-    # alert, emerg.
-    LogLevel warn
+# Install and configure the latest stable version of WordPress
+if [[ ! -d "/vagrant/site" ]]; then
+    echo "INFO: Installing WordPress..."
 
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-EOF
-)
+    # Download and unzip files
+    cd /vagrant
+    curl -L -O "https://wordpress.org/latest.tar.gz"
+    sudo -EH -u "vagrant" tar -xvf latest.tar.gz
+    mv wordpress site
+    rm latest.tar.gz
+    cd /vagrant/site
 
-echo "${VHOST}" > /etc/apache2/sites-available/default
+    # Create a wp-config.php
+    sudo -EH -u "vagrant" wp core config --dbname=wordpress_default --dbuser=root --dbpass=vagrant
 
-echo "INFO: Updating vhosts... Done."
+    # Run the WordPress Installer
+    sudo -EH -u "vagrant" wp core install --url=localhost:4567  --title="Local WordPress Dev" --admin_name=wp_dev --admin_email="admin@localhost.dev" --admin_password="password"
+
+    echo "INFO: Installing WordPress... Done"
+fi
 
 # Restart services
-echo "INFO: Restarting apache..."
+echo "INFO: Restarting Apache..."
 /etc/init.d/apache2 restart
-echo "INFO: Restarting apache... Done."
+echo "INFO: Restarting Apache... Done."
 
 # Clean up apt-get
 echo "INFO: Cleaning up apt-get..."
 apt-get clean
 echo "INFO: Cleaning up apt-get... Done."
 
-echo "INFO: Provisioning Wordpress Vagrant LAMP complete!"
+echo "INFO: Provisioning WordPress Vagrant LAMP complete!"
