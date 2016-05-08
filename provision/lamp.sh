@@ -5,20 +5,13 @@ echo "INFO: Provisioning WordPress Vagrant LAMP"
 
 # Update apt-get
 echo "INFO: Updating apt-get..."
+add-apt-repository ppa:ondrej/php
 apt-get update
 echo "INFO: Updating apt-get... Done."
-
-# Install git
-echo "INFO: Installing git..."
-apt-get install -y git-core
-echo "INFO: Installing git... Done."
 
 # Install Apache
 echo "INFO: Installing apache2..."
 apt-get install -y apache2
-rm -rf /var/www
-ln -fs /vagrant/site /var/www
-echo "/var/www === /vagrant/site"
 echo "INFO: Installing apache2... Done."
 
 # Enable mod_rewrite
@@ -28,22 +21,14 @@ echo "INFO: Enabling mod_rewrite... Done."
 
 # Update vhosts file
 echo "INFO: Updating vhosts..."
-cp /vagrant/provision/vhosts-default.conf /etc/apache2/sites-available/default
+cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.old
+cp /vagrant/provision/000-default.conf /etc/apache2/sites-available/000-default.conf
 echo "INFO: Updating vhosts... Done."
 
 # Install PHP5
-echo "INFO: Installing php5..."
-apt-get install -y php5 libapache2-mod-php5 php-apc php5-mysql php5-dev
-echo "INFO: Installing php5... Done."
-
-# Install Composer if it is not yet available.
-if [[ ! -n "$(composer --version --no-ansi | grep 'Composer version')" ]]; then
-    echo "INFO: Installing Composer..."
-    curl -sS "https://getcomposer.org/installer" | php
-    chmod +x "composer.phar"
-    mv "composer.phar" "/usr/local/bin/composer"
-    echo "INFO: Installing Composer... Done"
-fi
+echo "INFO: Installing php7..."
+apt-get install -y php7.0 php7.0-mysql libapache2-mod-php7.0
+echo "INFO: Installing php7... Done."
 
 # Install MySQL
 echo "INFO: Installing mysql..."
@@ -52,77 +37,66 @@ echo "mysql-server-5.5 mysql-server/root_password_again password vagrant" | debc
 apt-get install -y mysql-server
 echo "INFO: Installing mysql... Done."
 
-# If phpmyadmin does not exist
-if [ ! -f /etc/phpmyadmin/config.inc.php ];
-then
-    # Used debconf-get-selections to find out what questions will be asked
-    # This command needs debconf-utils
+echo "INFO: Creating WordPress DB..."
+mysql -u "root" -p"vagrant" < "/vagrant/provision/db.sql"
+echo "INFO: Creating WordPress DB... Done"
 
-    # Handy for debugging. clear answers phpmyadmin: echo PURGE | debconf-communicate phpmyadmin
+# # If phpmyadmin does not exist
+# if [ ! -f /etc/phpmyadmin/config.inc.php ];
+# then
+#     # Used debconf-get-selections to find out what questions will be asked
+#     # This command needs debconf-utils
 
-    echo "INFO: Installing phpmyadmin..."
+#     # Handy for debugging. clear answers phpmyadmin: echo PURGE | debconf-communicate phpmyadmin
 
-    echo 'phpmyadmin phpmyadmin/dbconfig-install boolean false' | debconf-set-selections
-    echo 'phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2' | debconf-set-selections
+#     echo "INFO: Installing phpmyadmin..."
 
-    echo 'phpmyadmin phpmyadmin/app-password-confirm password vagrant' | debconf-set-selections
-    echo 'phpmyadmin phpmyadmin/mysql/admin-pass password vagrant' | debconf-set-selections
-    echo 'phpmyadmin phpmyadmin/password-confirm password vagrant' | debconf-set-selections
-    echo 'phpmyadmin phpmyadmin/setup-password password vagrant' | debconf-set-selections
-    echo 'phpmyadmin phpmyadmin/database-type select mysql' | debconf-set-selections
-    echo 'phpmyadmin phpmyadmin/mysql/app-pass password vagrant' | debconf-set-selections
+#     echo 'phpmyadmin phpmyadmin/dbconfig-install boolean false' | debconf-set-selections
+#     echo 'phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2' | debconf-set-selections
 
-    echo 'dbconfig-common dbconfig-common/mysql/app-pass password vagrant' | debconf-set-selections
-    echo 'dbconfig-common dbconfig-common/mysql/app-pass password' | debconf-set-selections
-    echo 'dbconfig-common dbconfig-common/password-confirm password vagrant' | debconf-set-selections
-    echo 'dbconfig-common dbconfig-common/app-password-confirm password vagrant' | debconf-set-selections
-    echo 'dbconfig-common dbconfig-common/app-password-confirm password vagrant' | debconf-set-selections
-    echo 'dbconfig-common dbconfig-common/password-confirm password vagrant' | debconf-set-selections
+#     echo 'phpmyadmin phpmyadmin/app-password-confirm password vagrant' | debconf-set-selections
+#     echo 'phpmyadmin phpmyadmin/mysql/admin-pass password vagrant' | debconf-set-selections
+#     echo 'phpmyadmin phpmyadmin/password-confirm password vagrant' | debconf-set-selections
+#     echo 'phpmyadmin phpmyadmin/setup-password password vagrant' | debconf-set-selections
+#     echo 'phpmyadmin phpmyadmin/database-type select mysql' | debconf-set-selections
+#     echo 'phpmyadmin phpmyadmin/mysql/app-pass password vagrant' | debconf-set-selections
 
-    apt-get install -y phpmyadmin
+#     echo 'dbconfig-common dbconfig-common/mysql/app-pass password vagrant' | debconf-set-selections
+#     echo 'dbconfig-common dbconfig-common/mysql/app-pass password' | debconf-set-selections
+#     echo 'dbconfig-common dbconfig-common/password-confirm password vagrant' | debconf-set-selections
+#     echo 'dbconfig-common dbconfig-common/app-password-confirm password vagrant' | debconf-set-selections
+#     echo 'dbconfig-common dbconfig-common/app-password-confirm password vagrant' | debconf-set-selections
+#     echo 'dbconfig-common dbconfig-common/password-confirm password vagrant' | debconf-set-selections
 
-    echo "INFO: Installing phpmyadmin... Done."
+#     apt-get install -y phpmyadmin
 
-    echo "INFO: Setting up DB..."
-    mysql -u "root" -p"vagrant" < "/vagrant/provision/db.sql"
-    echo "INFO: Setting up DB... Done"
-fi
-
-mkdir /vagrant/tools
-
-# Install Composer
-if [[ ! -n "$(composer --version --no-ansi | grep 'Composer version')" ]]; then
-    echo "INFO: Installing Composer..."
-
-    curl -sS "https://getcomposer.org/installer" | php
-    chmod +x "composer.phar"
-    mv "composer.phar" "/usr/local/bin/composer"
-
-    echo "INFO: Installing Composer... Done"
-fi
+#     echo "INFO: Installing phpmyadmin... Done."
+# fi
 
 # Install WP-CLI
-if [[ ! -d "/vagrant/tools/wp-cli" ]]; then
+if [[ ! -d "/vagrant/tools/wp-cli.phar" ]]; then
     echo -e "INFO: Installing WP-CLI..."
-    git clone "https://github.com/wp-cli/wp-cli.git" "/vagrant/tools/wp-cli"
-    cd /vagrant/tools/wp-cli
-    composer install
-    # Link `wp` to the `/usr/local/bin` directory
-    ln -sf "/vagrant/tools/wp-cli/bin/wp" "/usr/local/bin/wp"
+
+    mkdir /vagrant/tools
+    cd /vagrant/tools
+    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    chmod +x wp-cli.phar
+    mv wp-cli.phar /usr/local/bin/wp
+
     echo -e "INFO: Installing WP-CLI... Done"
 fi
 
 # Install and configure the latest stable version of WordPress
-if [[ ! -d "/vagrant/site" ]]; then
+if [[ ! -d "/vagrant/public_html" ]]; then
     echo "INFO: Installing WordPress..."
 
     # Download and unzip files
     cd /vagrant
     curl -L -O "https://wordpress.org/latest.tar.gz"
     sudo -EH -u "vagrant" tar -xvf latest.tar.gz
-    mv wordpress site
+    mv wordpress public_html
     rm latest.tar.gz
-    cd /vagrant/site
+    cd /vagrant/public_html
 
     # Create a wp-config.php
     sudo -EH -u "vagrant" wp core config --dbname=wordpress_default --dbuser=root --dbpass=vagrant
@@ -132,6 +106,12 @@ if [[ ! -d "/vagrant/site" ]]; then
 
     echo "INFO: Installing WordPress... Done"
 fi
+
+# Symlinking public_html
+echo "INFO: Symlinking public_html to /var/www/html..."
+rm -rf /var/www/html
+ln -fs /vagrant/public_html/ /var/www/html
+echo "INFO: Symlinking public_html to /var/www/html... Done"
 
 # Restart services
 echo "INFO: Restarting Apache..."

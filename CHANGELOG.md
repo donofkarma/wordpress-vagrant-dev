@@ -1,18 +1,11 @@
 Changelog
 ---------------------
 
-### 0.0.1
-- Adding initial code
-
-### 0.1.0
-- Updating `vagrant up` to include building dependencies on first load
-- Adding Gemfile and bower.json to handle additional dependencies
-
-### 0.1.1
-- Removing auto build on `vagrant up` due to failing GETs
-- Removing Ruby Sass dependancy in favour of libsass
-- Removing jquery.hammer from bower.json
-- Updating `<html>` conditional comments
+### 1.0.0
+Complete re-write of the core:
+- Updating Vagrant box to precise64
+- Turning on NFS for better performance
+- New provisioning to create the instance for you on first `vagrant up`
 
 ### 0.2.0
 - Upgrading to Wordpress 4.4.2
@@ -21,3 +14,16 @@ Changelog
 - Switching to ES6
 - Changing build from Grunt to npm scripts
 - Removing jQuery
+
+### 0.1.1
+- Removing auto build on `vagrant up` due to failing GETs
+- Removing Ruby Sass dependancy in favour of libsass
+- Removing jquery.hammer from bower.json
+- Updating `<html>` conditional comments
+
+### 0.1.0
+- Updating `vagrant up` to include building dependencies on first load
+- Adding Gemfile and bower.json to handle additional dependencies
+
+### 0.0.1
+- Adding initial code

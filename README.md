@@ -1,4 +1,4 @@
-Wordpress Vagrant Starkers v0.2.0
+Wordpress Vagrant Starkers v1.0.0
 ====================
 
 Baseline Wordpress and Starkers theme build using Vagrant.
@@ -10,7 +10,7 @@ Included versions
 ---------------------
 
 ### Wordpress
-- Wordpress v4.4.2
+- Wordpress (latest)
 - Starkers v4.0
 
 
@@ -20,9 +20,8 @@ Installation
 To use this you will need:
 - [Virtualbox](https://www.virtualbox.org/)
 - [Vagrant](https://www.vagrantup.com/)
-- [Node.js](https://nodejs.org/) (recommended)
-- [Bower](http://bower.io/) (recommended)
-- [Grunt.js](http://gruntjs.com/) (recommended)
+- [Node.js](https://nodejs.org/)
+- [Bower](http://bower.io/)
 
 Once these have been installed clone the repo, `cd` into the directory, and start the provision by running:
 
@@ -35,15 +34,6 @@ Now, install the dependencies with:
 ```shell
 npm install && bower install
 ```
-
-Once that's done run either the `grunt build` or `grunt deploy` task below to generate the assets for the theme.
-
-
-### Database
-
-To create the database navigate to [http://localhost:4567/phpmyadmin](http://localhost:4567/phpmyadmin) and log in with the username "root" and the password of "vagrant". Once you've added a new database for the Wordpress instance to use, remember to copy these setting over to the `site/wp-content/wp-config.php` file.
-
-Now navigate to [http://localhost:4567](http://localhost:4567) to begin the Wordpress installation.
 
 
 ### Building assets
@@ -70,9 +60,6 @@ grunt (test|build|deploy)
 
 To Do
 ---------------------
-
-- Add a better media query mixin
-- Add image minification to deploy task
 
 
 Release History

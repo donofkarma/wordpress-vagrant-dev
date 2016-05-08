@@ -34,7 +34,6 @@ Thumbs.db
 .sass-cache/
 .vagrant/
 bower_components/
+public_html/
 node_modules/
-site/wp-content/themes/custom-theme/*.css
-site/wp-content/themes/custom-theme/assets/
 site_old/
