@@ -104,6 +104,14 @@ if [[ ! -d "/vagrant/public_html" ]]; then
     # Run the WordPress Installer
     sudo -EH -u "vagrant" wp core install --url=localhost:4567  --title="Local WordPress Dev" --admin_name=wp_dev --admin_email="admin@localhost.dev" --admin_password="password"
 
+    # Link our custom-theme and plugins directories
+    ln -fs /vagrant/src/site/themes/custom-theme/ /vagrant/public_html/wp-content/themes/custom-theme
+    rm -rf /vagrant/public_html/wp-content/plugins
+    ln -fs /vagrant/src/site/plugins/ /vagrant/public_html/wp-content/plugins
+
+    # Activate the admin theme plugin
+    sudo -EH -u "vagrant" wp plugin activate slate-admin-theme
+
     echo "INFO: Installing WordPress... Done"
 fi
 

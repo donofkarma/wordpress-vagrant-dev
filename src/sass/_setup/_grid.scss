@@ -1,9 +1,10 @@
-@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid-framework";
-@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid";
-@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/grid";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid-framework";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid";
 
 // no spacing between columns
-.row.no-gutter [class*='col-']:not(:first-child),.row.no-gutter [class*='col-']:not(:last-child) {
+.row.no-gutter [class*='col-']:not(:first-child),
+.row.no-gutter [class*='col-']:not(:last-child) {
     padding-right: 0;
     padding-left: 0;
 }
@@ -24,14 +25,14 @@ section {
     overflow: hidden;
 }
 
-// .no-margin-horizontal {
-//     margin-right: 0;
-//     margin-left: 0;
-// }
-// .no-padding-horizontal {
-//     padding-right: 0;
-//     padding-left: 0;
-// }
+.no-margin-horizontal {
+    margin-right: 0;
+    margin-left: 0;
+}
+.no-padding-horizontal {
+    padding-right: 0;
+    padding-left: 0;
+}
 
 // hide stuff at breakpoints
 .xs-hidden {

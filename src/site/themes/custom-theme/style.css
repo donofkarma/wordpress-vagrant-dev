@@ -1,0 +1,11 @@
+/*
+Theme Name: Custom Theme
+Theme URI: http://[YOUR URL]/
+Author: Jasal Vadgama - http://blacklabelcreative.com/
+Description: Baseline Wordpress build using Vagrant and Starkers
+Version: 0.0.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+@import "assets/css/style.css"
