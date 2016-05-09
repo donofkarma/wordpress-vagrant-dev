@@ -21,7 +21,6 @@ To use this you will need:
 - [Virtualbox](https://www.virtualbox.org/)
 - [Vagrant](https://www.vagrantup.com/)
 - [Node.js](https://nodejs.org/)
-- [Bower](http://bower.io/)
 
 Once these have been installed clone the repo, `cd` into the directory, and start the provision by running:
 
@@ -32,7 +31,7 @@ vagrant up
 Now, install the dependencies with:
 
 ```shell
-npm install && bower install
+npm install
 ```
 
 
