@@ -48,13 +48,13 @@ npm run watch
 Release History
 ---------------------
 
-For a full release history, see the [Changelog](https://github.com/donofkarma/wordpress-vagrant-starkers/blob/master/CHANGELOG.md)
+For a full release history, see the [Changelog](https://github.com/donofkarma/wordpress-vagrant-dev/blob/master/CHANGELOG.md)
 
 
 License
 ---------------------
 
-MIT: [https://github.com/donofkarma/wordpress-vagrant-starkers/blob/master/LICENSE](https://github.com/donofkarma/wordpress-vagrant-starkers/blob/master/LICENSE)
+MIT: [https://github.com/donofkarma/wordpress-vagrant-dev/blob/master/LICENSE](https://github.com/donofkarma/wordpress-vagrant-dev/blob/master/LICENSE)
 
 
 To-do
