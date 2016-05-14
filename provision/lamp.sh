@@ -22,7 +22,7 @@ echo "INFO: Enabling mod_rewrite... Done."
 # Update vhosts file
 echo "INFO: Updating vhosts..."
 cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.old
-cp /vagrant/provision/000-default.conf /etc/apache2/sites-available/000-default.conf
+cp /vagrant/provision/config/000-default.conf /etc/apache2/sites-available/000-default.conf
 echo "INFO: Updating vhosts... Done."
 
 # Install PHP5
@@ -38,7 +38,7 @@ apt-get install -y mysql-server
 echo "INFO: Installing mysql... Done."
 
 echo "INFO: Creating WordPress DB..."
-mysql -u "root" -p"vagrant" < "/vagrant/provision/db.sql"
+mysql -u "root" -p"vagrant" < "/vagrant/provision/config/db.sql"
 echo "INFO: Creating WordPress DB... Done"
 
 # # If phpmyadmin does not exist
@@ -109,8 +109,11 @@ if [[ ! -d "/vagrant/public_html" ]]; then
     rm -rf /vagrant/public_html/wp-content/plugins
     ln -fs /vagrant/src/site/plugins/ /vagrant/public_html/wp-content/plugins
 
-    # Activate the admin theme plugin
-    sudo -EH -u "vagrant" wp plugin activate slate-admin-theme
+    # Copy .htaccess file
+    cp /vagrant/provision/config/.htaccess /vagrant/public_html/
+
+    # Activate the Custom Theme
+    sudo -EH -u "vagrant" wp theme activate custom-theme
 
     echo "INFO: Installing WordPress... Done"
 fi

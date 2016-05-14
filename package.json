@@ -1,18 +1,13 @@
 {
-    "name": "wordpress-vagrant-starkers",
-    "description": "Baseline Wordpress build using Vagrant and Starkers",
+    "name": "wordpress-vagrant-dev",
+    "description": "A WordPress development environment in Vagrant",
     "version": "1.0.0",
-    "author": "Jasal Vadgama - http://blacklabelcreative.com/",
+    "author": "Jasal Vadgama <jasal@blacklabelcreative.com> (http://blacklabelcreative.com/)",
     "repository": {
         "type": "git",
-        "url": "git@github.com:donofkarma/wordpress-vagrant-starkers.git"
+        "url": "git@github.com:donofkarma/wordpress-vagrant-dev.git"
     },
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/donofkarma/wordpress-vagrant-starkers/blob/master/LICENSE-MIT"
-        }
-    ],
+    "license": "MIT - SEE LICENSE IN https://github.com/donofkarma/wordpress-vagrant-dev/blob/master/LICENSE",
     "main": "/",
     "config": {
         "theme": "./src/site/themes/custom-theme/assets"
@@ -46,7 +41,7 @@
         "watch": "parallelshell 'npm run watch:css' 'npm run watch:script'"
     },
     "engines": {
-        "node": ">= 4.2.6"
+        "node": ">= 4.4.4"
     },
     "devDependencies": {
         "babel-cli": "6.8.x",

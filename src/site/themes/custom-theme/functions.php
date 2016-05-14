@@ -70,6 +70,9 @@
     }
     add_action( 'template_redirect', 'rw_relative_urls' );
 
+    // Admin theme
+    require_once( 'external/admin-theme/admin-theme.php' );
+
     /* ========================================================================================================================
 
     Custom Post Types - include custom post types and taxonimies here e.g.

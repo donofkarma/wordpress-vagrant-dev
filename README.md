@@ -1,64 +1,48 @@
-Wordpress Vagrant Starkers v1.0.0
+WordPress Vagrant Baseline v1.0.0
 ====================
 
-Baseline Wordpress and Starkers theme build using Vagrant.
-
-Feel free to fork/clone/use it if you want to.
-
-
-Included versions
----------------------
-
-### Wordpress
-- Wordpress (latest)
-- Starkers v4.0
+A WordPress development environment in Vagrant. Feel free to fork/clone/use it if you want to.
 
 
 Installation
 ---------------------
+
+### Prerequisites
 
 To use this you will need:
 - [Virtualbox](https://www.virtualbox.org/)
 - [Vagrant](https://www.vagrantup.com/)
 - [Node.js](https://nodejs.org/)
 
-Once these have been installed clone the repo, `cd` into the directory, and start the provision by running:
+
+### Core Environment
+
+Clone the repository, `cd` into the directory, and start the provision by running:
 
 ```shell
 vagrant up
 ```
 
-Now, install the dependencies with:
+**Notes**
+* DB credentials are _root_/_vagrant_
+* WordPress admin credentials are _wp_dev_/_password_
+
+### Images/CSS/JS
+
+Install the dependencies and build the base assets with:
 
 ```shell
-npm install
+npm install && npm run build
 ```
 
 
-### Building assets
+#### Building assets
 
-From the root of the repository run the grunt watch task to automatically compile the Sass and lint the JS when you make changes:
-
-```shell
-grunt watch
-```
-
-#### Available tasks
-
-There are 4 build tasks included in the Gruntfile:
+From the root of the repository run the watch task to automatically compile the Sass and JS (ES6) when you make changes:
 
 ```shell
-grunt (test|build|deploy)
+npm run watch
 ```
-
-1. test: lints the JS
-2. build: compiles CSS and JS, and copies the images and fonts to the assets directory of the theme
-3. deploy: runs the build task then minifies the CSS and JS
-4. default: runs the test and then build tasks
-
-
-To Do
----------------------
 
 
 Release History
@@ -70,4 +54,11 @@ For a full release history, see the [Changelog](https://github.com/donofkarma/wo
 License
 ---------------------
 
-MIT: [https://github.com/donofkarma/wordpress-vagrant-starkers/blob/master/LICENSE-MIT](https://github.com/donofkarma/wordpress-vagrant-starkers/blob/master/LICENSE_MIT)
+MIT: [https://github.com/donofkarma/wordpress-vagrant-starkers/blob/master/LICENSE](https://github.com/donofkarma/wordpress-vagrant-starkers/blob/master/LICENSE)
+
+
+To-do
+---------------------
+
+* Add a more secure default password
+* Debug phpmyadmin - not working with PHP7
