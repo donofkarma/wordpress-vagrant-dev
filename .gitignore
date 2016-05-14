@@ -31,5 +31,6 @@ Thumbs.db
 # Project files #
 #################
 .vagrant/
-public_html/
 node_modules/
+public_html/
+tools/

@@ -3,9 +3,10 @@ Changelog
 
 ### 1.0.0
 Complete re-write of the core:
-- Updating Vagrant box to precise64
+- Updating Vagrant box to ubuntu/trusty64
 - Turning on NFS for better performance
 - New provisioning to create the instance for you on first `vagrant up`
+- Upgrading to PHP 7
 
 ### 0.2.0
 - Upgrading to Wordpress 4.4.2

@@ -7,7 +7,7 @@
         "type": "git",
         "url": "git@github.com:donofkarma/wordpress-vagrant-dev.git"
     },
-    "license": "MIT - SEE LICENSE IN https://github.com/donofkarma/wordpress-vagrant-dev/blob/master/LICENSE",
+    "license": "MIT",
     "main": "/",
     "config": {
         "theme": "./src/site/themes/custom-theme/assets"
