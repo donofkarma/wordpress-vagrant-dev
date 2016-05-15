@@ -25,11 +25,12 @@
 
     ======================================================================================================================== */
 
+    add_theme_support( 'html5' );
     add_theme_support( 'post-thumbnails' );
 
-    // register_nav_menus(
-    //     array( 'primary' => 'Primary Navigation' )
-    // );
+    register_nav_menus(
+        array( 'primary' => 'Primary Navigation' )
+    );
 
     /* ========================================================================================================================
 
@@ -37,7 +38,10 @@
 
     ======================================================================================================================== */
 
-    // remove the Wordpress version number
+    // remove unwanted items from <head>
+    remove_action( 'wp_head', 'rsd_link' );
+    remove_action( 'wp_head', 'wlwmanifest_link' );
+    remove_action( 'wp_head', 'wp_shortlink_wp_head' );
     remove_action( 'wp_head', 'wp_generator' );
 
     // make links relative

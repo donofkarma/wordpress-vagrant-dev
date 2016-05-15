@@ -2,7 +2,18 @@
 <!--[if lte IE 9]> <html class="lt-ie10 no-js"> <![endif]-->
 <!--[if !IE]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
     <head>
-        <title><?php wp_title( '|', true, 'right' ); ?><?php bloginfo( 'name' ); ?></title>
+        <?php
+            $title = '';
+
+            if ( !is_front_page() ) {
+                $title .= wp_title( '|', false, 'right' );
+            }
+            $title .= get_bloginfo( 'name' );
+            if ( is_front_page() ) {
+                $title .= ' - ' . html_entity_decode( get_bloginfo( 'description' ) );
+            }
+        ?>
+        <title><?php echo $title; ?></title>
 
         <script>
             // set js enabled class - replaces 'no-js' with 'js'
@@ -22,6 +33,15 @@
 
         <!-- stylesheets -->
         <link href="<?php echo wp_make_link_relative( get_template_directory_uri() ); ?>/style.css" media="screen" rel="stylesheet" />
+
+        <!-- Facebook Config -->
+        <!-- OpenGraph -->
+        <meta property="og:url" content="<?php echo site_url() . $_SERVER['REQUEST_URI']; ?>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="<?php echo get_the_title(); ?>" />
+        <meta property="og:description" content="<?php bloginfo( 'description' ); ?>" />
+        <meta property="og:image" content="Enter image here" />
+        <meta property="og:site_name" content="<?php bloginfo( 'name' ) ?>" />
 
         <?php wp_head(); ?>
     </head>
