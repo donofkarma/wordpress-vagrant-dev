@@ -119,6 +119,10 @@ if [[ ! -d "/vagrant/public_html" ]]; then
     # timber-library
     sudo -EH -u "vagrant" wp plugin activate timber-library
 
+    # Update settings
+    # permalinks
+    sudo -EH -u "vagrant" wp rewrite structure '/%year%/%monthnum%/%postname%'
+
     echo "INFO: Installing WordPress... Done"
 fi
 
