@@ -102,7 +102,7 @@ if [[ ! -d "/vagrant/public_html" ]]; then
     sudo -EH -u "vagrant" wp core config --dbname=wordpress_default --dbuser=root --dbpass=vagrant
 
     # Run the WordPress Installer
-    sudo -EH -u "vagrant" wp core install --url=localhost:4567  --title="Local WordPress Dev" --admin_name=wp_dev --admin_email="admin@localhost.dev" --admin_password="password"
+    sudo -EH -u "vagrant" wp core install --url=localhost:4567 --title="Local WordPress Dev" --admin_name=wp_dev --admin_email="admin@localhost.dev" --admin_password="password"
 
     # Link our custom-theme and plugins directories
     ln -fs /vagrant/src/site/themes/custom-theme/ /vagrant/public_html/wp-content/themes/custom-theme
@@ -114,6 +114,10 @@ if [[ ! -d "/vagrant/public_html" ]]; then
 
     # Activate the Custom Theme
     sudo -EH -u "vagrant" wp theme activate custom-theme
+
+    # Activate plugins
+    # timber-library
+    sudo -EH -u "vagrant" wp plugin activate timber-library
 
     echo "INFO: Installing WordPress... Done"
 fi
