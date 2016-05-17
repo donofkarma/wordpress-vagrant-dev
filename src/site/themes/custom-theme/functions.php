@@ -74,8 +74,9 @@
     }
     add_action( 'template_redirect', 'rw_relative_urls' );
 
-    // Admin theme
-    require_once( 'external/admin-theme/admin-theme.php' );
+    // Admin customisations
+    require_once( 'external/admin/admin-dashboard.php' );
+    require_once( 'external/admin/admin-theme.php' );
 
     /* ========================================================================================================================
 
