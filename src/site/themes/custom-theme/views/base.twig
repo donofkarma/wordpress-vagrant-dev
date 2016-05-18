@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--[if lte IE 9]> <html class="lt-ie10 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <title>{{ site.name ~ ' - ' ~ site.description }}</title>
+
+        <script>
+            // set js enabled class - replaces 'no-js' with 'js'
+            document.documentElement.className = document.documentElement.className.replace(/(\s|^)no-js(\s|$)/, '$1' + 'js' + '$2');
+        </script>
+
+        <!-- browser settings -->
+        <meta charset="{{site.charset}}" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+        <!-- icons -->
+
+        <!-- stylesheets -->
+        <link href="{{ site.theme.link|relative }}/style.css" media="screen" rel="stylesheet" />
+
+        <!-- Facebook Config -->
+        <!-- OpenGraph -->
+        <meta property="og:url" content="{{ site.url }}{% if not is_home or not is_front_page %}{{ function('get_the_permalink') }}{% endif %}" />
+        <meta property="og:type" content="{% if is_single %}article{% else %}website{% endif %}" />
+        <meta property="og:title" content="{{ site.title }}" />
+        <meta property="og:description" content="{{ site.description }}" />
+        <meta property="og:image" content="Enter image here" />
+        <meta property="og:site_name" content="{{ site.name }}" />
+
+        {{ function('wp_head') }}
+    </head>
+    <body {{ function('body_class') }}>
+
+        {% include 'partials/header.twig' %}
+
+        <main>
+            {% block content %}
+                <p>No content found!</p>
+            {% endblock %}
+        </main>
+
+        {% include 'partials/footer.twig' %}
+
+        <script src="{{ site.theme.link|relative }}/assets/js/script.js"></script>
+
+        {{ function('wp_footer') }}
+
+    </body>
+</html>
+

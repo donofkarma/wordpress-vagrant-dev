@@ -11,6 +11,50 @@
 
     /* ========================================================================================================================
 
+    Set up Timber
+
+    ======================================================================================================================== */
+
+    // Make sure Timber exists
+    if ( !class_exists( 'Timber' ) ) {
+        add_action( 'admin_notices', function() {
+                echo '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="' . esc_url( admin_url( 'plugins.php#timber' ) ) . '">' . esc_url( admin_url( 'plugins.php' ) ) . '</a></p></div>';
+            } );
+        return;
+    }
+
+    // Set directories for Twig
+    Timber::$dirname = array( 'views' );
+
+    class TwigTemplates extends TimberSite {
+
+        function __construct() {
+            add_filter( 'timber_context', array( $this, 'add_to_context' ) );
+
+            parent::__construct();
+        }
+
+        // Add data for the templates
+        function add_to_context( $context ) {
+            // Site metadata
+            $context['site'] = $this;
+
+            // page type
+            $context['is_home'] = is_home();
+            $context['is_front_page'] = is_front_page();
+            $context['is_single'] = is_single();
+
+            // Menus
+            $context['primaryMenu'] = new TimberMenu( 'primary' );
+
+            return $context;
+        }
+
+    }
+    new TwigTemplates();
+
+    /* ========================================================================================================================
+
     Required external files
 
     ======================================================================================================================== */
@@ -26,6 +70,7 @@
     ======================================================================================================================== */
 
     add_theme_support( 'html5' );
+    add_theme_support( 'menus' );
     add_theme_support( 'post-thumbnails' );
 
     register_nav_menus(
@@ -39,10 +84,12 @@
     ======================================================================================================================== */
 
     // remove unwanted items from <head>
+    remove_action( 'wp_head', 'print_emoji_detection_script', 7 ); // removes emojis js
     remove_action( 'wp_head', 'rsd_link' );
     remove_action( 'wp_head', 'wlwmanifest_link' );
     remove_action( 'wp_head', 'wp_shortlink_wp_head' );
     remove_action( 'wp_head', 'wp_generator' );
+    remove_action( 'wp_print_styles', 'print_emoji_styles' );  // removes emojis css
 
     // make links relative
     function rw_relative_urls() {

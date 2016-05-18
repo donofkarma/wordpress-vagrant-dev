@@ -1,0 +1,23 @@
+<header class="header" role="banner">
+    <h1 class="site-title"><a href="/">{{ site.name }}</a></h1>
+    <p>{{ site.description }}</p>
+
+    <nav class="navigation--primary">
+        <ul>
+            {% for item in primaryMenu.get_items %}
+                <li class="{{ item.classes | join(' ') }}">
+                    <a href="{{ item.get_link}}">{{ item.title }}</a>
+                    {% if item.get_children %}
+                        <ul>
+                          {% for child in item.get_children %}
+                            <li><a href="{{child.get_link}}">{{child.title}}</a></li>
+                          {% endfor %}
+                        </ul>
+                     {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    {{ function('get_search_form') }}
+</header>
