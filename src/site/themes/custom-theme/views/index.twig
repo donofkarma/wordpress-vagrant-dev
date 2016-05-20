@@ -6,11 +6,12 @@
 
         {% for post in posts %}
             <article>
-                <h2><a href="{{ post.permalink }}" title="Permalink to {{ post.title }}" rel="bookmark">{{ post.title }}</a></h2>
-                <p>
-                    By <a href="{{ post.author.path }}" title="See all of {{ post.author.name }} posts">{{ post.author.name }}</a> on <time datetime="<?php the_time( 'Y-m-d' ); ?>" pubdate>{{ post.post_date|date('Y-m-d') }}</time>
-                </p>
-                {# <p><?php comments_popup_link('Leave a Comment', '1 Comment', '% Comments'); ?></p> #}
+                <header>
+                    <h2><a href="{{ post.permalink }}" title="Permalink to {{ post.title }}" rel="bookmark">{{ post.title }}</a></h2>
+                    <p>
+                        By <a href="{{ post.author.path }}" title="See all of {{ post.author.name }} posts">{{ post.author.name }}</a> on <time datetime="<?php the_time( 'Y-m-d' ); ?>" pubdate>{{ post.post_date|date('Y-m-d') }}</time>
+                    </p>
+                </header>
                 {{ post.content }}
             </article>
         {% endfor %}
