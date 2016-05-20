@@ -28,18 +28,15 @@
         }
 
         /**
-         * Simple wrapper for native get_template_part()
-         * Allows you to pass in an array of parts and output them in your theme
-         * e.g. <?php get_template_parts( array( 'part-1', 'part-2' ) ); ?>
+         * Get the term name from a term id
          *
-         * @param   array
-         * @return  void
+         * @param   string
+         * @return  string
          * @author  Jasal Vadgama
-         **/
-        public static function get_template_parts( $parts = array() ) {
-            foreach ( $parts as $part ) {
-                get_template_part( $part );
-            };
+         */
+        public static function get_term_name_from_id( $term_id, $term_tax ){
+            $term = get_term_by( 'id', $term_id, $term_tax );
+            return $term->name;
         }
 
         /**
@@ -64,7 +61,7 @@
          *
          * @param   string
          * @return  string
-         * @author  Keir Whitaker
+         * @author  Jasal Vadgama
          */
         public static function get_category_id_from_name( $cat_name ){
             $term = get_term_by( 'name', $cat_name, 'category' );

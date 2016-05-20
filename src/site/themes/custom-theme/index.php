@@ -49,20 +49,23 @@ if ( is_home() || is_front_page() ) {
     } else if ( is_category() ) {
         array_unshift( $templates, 'category-' . get_query_var( 'cat' ) . '.twig', 'category.twig' );
 
-        $data['archive_title'] = get_cat_name( get_query_var('cat') );
+        $context['title'] = 'Category Archive: "' . Core_Utilities::get_term_name_from_id( get_query_var( 'cat' ), 'category' ) . '"';
     } else if ( is_tag() ) {
         array_unshift( $templates, 'tag.twig' );
 
-        $data['archive_title'] = get_term_name( get_query_var('tag_id') );
+        $context['title'] = 'Tag Archive: "' . Core_Utilities::get_term_name_from_id( get_query_var( 'tag_id' ), 'post_tag' ) . '"';
     } else if ( is_author() ) {
         array_unshift( $templates, 'author.twig' );
 
-        $data['archive_title'] = 'Author Archives: ' . get_the_author();
+        $context['title'] = 'Author Archives: ' . get_the_author();
     } else if ( is_post_type_archive() ) {
+        // custom post types archive
         array_unshift( $templates, 'archive-' . get_post_type() . '.twig' );
 
         $context['title'] = post_type_archive_title( '', false );
     }
+} else if ( is_404() ) {
+    array_unshift( $templates, '404.twig' );
 }
 
 // var_dump( $templates );
