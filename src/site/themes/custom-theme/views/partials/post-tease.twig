@@ -1,12 +1,17 @@
 <article class="post post--tease">
-    <header class="post-header">
-        <h2><a href="{{ post.permalink }}" title="Permalink to {{ post.title }}" rel="bookmark">{{ post.title }}</a></h2>
-        <div class="author">
-            By <a href="{{ post.author.path }}" title="See all of {{ post.author.name }} posts">{{ post.author.name }}</a> on <time datetime="{{ post.post_date|date('Y-m-d') }}">{{ post.post_date|date }}</time>
-        </div>
-    </header>
+    <a href="{{ post.permalink }}" title="Permalink to {{ post.title }}" rel="bookmark">
+        <header class="post-header">
+            {% if post.get_thumbnail %}
+                <img alt="{{ post.title }}" src="{{ post.get_thumbnail.get_src|resize(320, 320) }}" />
+            {% endif %}
+            <h2>{{ post.title }}</h2>
+            <div class="author">
+                By <a href="{{ post.author.path }}" title="See all of {{ post.author.name }} posts">{{ post.author.name }}</a> on <time datetime="{{ post.post_date|date('Y-m-d') }}">{{ post.post_date|date }}</time>
+            </div>
+        </header>
 
-    <section class="post-content">
-        {{ post.post_content|excerpt(30)|wpautop }}
-    </section>
+        <section class="post-content">
+            {{ post.post_content|excerpt(30)|wpautop }}
+        </section>
+    </a>
 </article>

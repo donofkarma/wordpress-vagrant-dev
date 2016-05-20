@@ -27,7 +27,7 @@ echo "INFO: Updating vhosts... Done."
 
 # Install PHP5
 echo "INFO: Installing php7..."
-apt-get install -y php7.0 php7.0-mysql libapache2-mod-php7.0
+apt-get install -y php7.0 php7.0-gd php7.0-mysql libapache2-mod-php7.0
 echo "INFO: Installing php7... Done."
 
 # Install MySQL
