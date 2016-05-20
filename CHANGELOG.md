@@ -1,6 +1,12 @@
 Changelog
 ---------------------
 
+### 1.1.0
+- Moving to Twig templating via the Timber plugin
+- Adding HTML and CSS structure to templates for easier start
+- Fixing `<title>` tag display
+- Adding OpenGraph meta data
+
 ### 1.0.0
 Complete re-write of the core:
 - Updating Vagrant box to ubuntu/trusty64

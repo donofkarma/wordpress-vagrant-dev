@@ -42,7 +42,7 @@
             // page type - for header meta data
             $context['is_home'] = is_home();
             $context['is_front_page'] = is_front_page();
-            $context['is_single'] = is_single();
+            $context['is_single'] = is_singular();
 
             // Menus
             $context['primaryMenu'] = new TimberMenu( 'primary' );

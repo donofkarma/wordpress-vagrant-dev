@@ -2,7 +2,7 @@
 <!--[if lte IE 9]> <html class="lt-ie10 no-js"> <![endif]-->
 <!--[if !IE]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
     <head>
-        <title>{{ site.name ~ ' - ' ~ site.description }}</title>
+        <title>{% if wp_title %}{{ wp_title }} - {{ site.name }}{% else %}{{ site.name }} - {{ site.description }}{% endif %}</title>
 
         <script>
             // set js enabled class - replaces 'no-js' with 'js'
@@ -23,9 +23,9 @@
         <!-- OpenGraph -->
         <meta property="og:url" content="{{ site.url }}{% if not is_home or not is_front_page %}{{ function('get_the_permalink') }}{% endif %}" />
         <meta property="og:type" content="{% if is_single %}article{% else %}website{% endif %}" />
-        <meta property="og:title" content="{{ site.title }}" />
-        <meta property="og:description" content="{{ site.description }}" />
-        <meta property="og:image" content="Enter image here" />
+        <meta property="og:title" content="{% if wp_title %}{{ wp_title }} - {{ site.name }}{% else %}{{ site.name }} - {{ site.description }}{% endif %}" />
+        <meta property="og:description" content="{% if is_single %}{{ post.post_content|excerpt(30) }}{% else %}{{ site.description }}{% endif %}" />
+        <meta property="og:image" content="{% if is_single %}{{post.get_thumbnail.get_src|resize(600, 400) }}{% else %}!!!ADD FALLBACK IMAGE!!!{% endif %}" />
         <meta property="og:site_name" content="{{ site.name }}" />
 
         {{ function('wp_head') }}
