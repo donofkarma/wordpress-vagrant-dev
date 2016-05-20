@@ -64,6 +64,10 @@ if ( is_home() || is_front_page() ) {
 
         $context['title'] = post_type_archive_title( '', false );
     }
+} else if ( is_search() ) {
+    array_unshift( $templates, 'search.twig' );
+
+    $context['title'] = 'Search Results for: "' . get_search_query() .'"';
 } else if ( is_404() ) {
     array_unshift( $templates, '404.twig' );
 }
