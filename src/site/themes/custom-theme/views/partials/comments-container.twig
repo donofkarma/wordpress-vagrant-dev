@@ -1,0 +1,13 @@
+<aside class="comments">
+    <h2>Comments</h2>
+
+    {% if post.comment_status == 'open' %}
+        {{ post.comment_form }}
+
+        {% for comment in post.comments %}
+            {% include 'partials/comment.twig' with { comment:comment } %}
+        {% endfor %}
+    {% else %}
+        <p>Comments are closed for this post.</p>
+    {% endif %}
+</aside>

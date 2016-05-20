@@ -2,12 +2,14 @@
 
 {% block content %}
     <section>
-        <article>
-            <header>
+        <article class="content-page">
+            <header class="content-page-header">
                 <h1>{{ post.title }}</h1>
             </header>
 
-            {{ post.content }}
+            <section class="content-page-content">
+                {{ post.post_content|wpautop }}
+            </section>
         </article>
     </section>
 {% endblock %}

@@ -1,0 +1,10 @@
+<article class="comment">
+    <header class="comment-header author comment-author">
+        <img alt="{{ comment.author.name }}" class="author-avatar" src="{{ comment.avatar }}" />
+        <h3 class="author-title">{{comment.author.name}} <time datetime="{{ comment.date|date('Y-m-d') }}">{{ comment.date|time_ago }}</time></h3>
+    </header>
+
+    <section class="comment-content">
+        {{ comment.comment_content|wpautop }}
+    </section>
+</article>

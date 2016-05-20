@@ -3,46 +3,21 @@
 {% block content %}
     <section>
         <article class="post">
-            <header>
+            <header class="post-header">
                 <h1>{{ post.title }}</h1>
                 <div class="author">
                     <img alt="{{ post.author.name }}" src="{{ post.author.avatar }}" />
-                    <h3 class="author-title">By <a href="{{ post.author.path }}" title="See all of {{ post.author.name }}'s posts">{{ post.author.name }}</a> on <time datetime="{{ post.post_date|date('Y-m-d') }}" pubdate>{{ post.post_date|date }}</time></h3>
+                    <h3 class="author-title">By <a href="{{ post.author.path }}" title="See all of {{ post.author.name }}'s posts">{{ post.author.name }}</a> on <time datetime="{{ post.post_date|date('Y-m-d') }}">{{ post.post_date|date }}</time></h3>
                 </div>
             </header>
 
-            {{ post.content }}
+            <section class="post-content">
+                {{ post.post_content|wpautop }}
+            </section>
 
-            {% if post.terms('tags') %}
-                <div class="post-tags">
-                    <h2>Tagged with:</h2>
-                    <ul>
-                        {% for term in post.terms('tags') %}
-                            <li><a href="{{ term.link }}">{{ term.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
+            {% include 'partials/tag-list.twig' with { tags:post.terms('tags') } %}
 
-            <aside class="comments">
-                <h2>Comments</h2>
-
-                {% if post.comment_status == 'open' %}
-                    {{ post.comment_form }}
-
-                    {% for comment in post.comments %}
-                        <article class="comment">
-                            <header class="author comment-author">
-                                <img alt="{{ comment.author.name }}" class="author-avatar" src="{{ comment.avatar }}" />
-                                <h3 class="author-title">{{comment.author.name}} <time>{{ comment.date|time_ago }}</time></h3>
-                            </header>
-                            {{ comment.comment_content|wpautop }}
-                        </article>
-                    {% endfor %}
-                {% else %}
-                    <p>Comments are closed for this post.</p>
-                {% endif %}
-            </aside>
+            {% include 'partials/comments-container.twig' with { post:post } %}
         </article>
     </section>
 {% endblock %}
