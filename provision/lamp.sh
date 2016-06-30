@@ -25,10 +25,15 @@ cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/00
 cp /vagrant/provision/config/000-default.conf /etc/apache2/sites-available/000-default.conf
 echo "INFO: Updating vhosts... Done."
 
-# Install PHP5
+# Install PHP7
 echo "INFO: Installing php7..."
-apt-get install -y php7.0 php7.0-gd php7.0-mysql libapache2-mod-php7.0
+apt-get install -y php7.0 php7.0-gd php7.0-mysql php7.0-xml libapache2-mod-php7.0
 echo "INFO: Installing php7... Done."
+
+# Install sendmail
+echo "INFO: Installing sendmail..."
+apt-get install -y sendmail
+echo "INFO: Installing sendmail... Done"
 
 # Install MySQL
 echo "INFO: Installing mysql..."
