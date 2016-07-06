@@ -2,7 +2,7 @@
     <h1 class="site-title"><a href="/">{{ site.name }}</a></h1>
     <p>{{ site.description }}</p>
 
-    <nav class="navigation--primary">
+    <nav class="navigation navigation--primary">
         <ul>
             {% for item in primaryMenu.get_items %}
                 <li class="{{ item.classes | join(' ') }}">

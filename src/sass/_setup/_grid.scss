@@ -2,14 +2,9 @@
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid";
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid";
 
-// no spacing between columns
-.row.no-gutter [class*='col-']:not(:first-child),
-.row.no-gutter [class*='col-']:not(:last-child) {
-    padding-right: 0;
-    padding-left: 0;
-}
-
-section {
+.page-wrapper {
+    position: relative;
+    overflow: hidden;
 }
 
 .container-fluid {
@@ -20,9 +15,11 @@ section {
     max-width: 1200px;
 }
 
-.page-wrapper {
-    position: relative;
-    overflow: hidden;
+// no spacing between columns
+.row.no-gutter [class*='col-']:not(:first-child),
+.row.no-gutter [class*='col-']:not(:last-child) {
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .no-margin-horizontal {
