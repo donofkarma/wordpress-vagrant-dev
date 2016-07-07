@@ -1,6 +1,10 @@
 Changelog
 ---------------------
 
+### 1.2.0
+- Adding sendmail for email capability
+- Adding phpMyAdmin for easy DB editing
+
 ### 1.1.0
 - Moving to Twig templating via the Timber plugin
 - Adding HTML and CSS structure to templates for easier start
