@@ -6,6 +6,7 @@ echo "INFO: Provisioning WordPress Vagrant LAMP"
 # Update apt-get
 echo "INFO: Updating apt-get..."
 add-apt-repository ppa:ondrej/php
+add-apt-repository ppa:nijel/phpmyadmin
 apt-get update
 echo "INFO: Updating apt-get... Done."
 
@@ -27,7 +28,7 @@ echo "INFO: Updating vhosts... Done."
 
 # Install PHP7
 echo "INFO: Installing php7..."
-apt-get install -y php7.0 php7.0-gd php7.0-mysql php7.0-xml libapache2-mod-php7.0
+apt-get install -y php7.0 php7.0-common php7.0-json php7.0-opcache php7.0-cli php7.0-mysql php7.0-fpm php7.0-curl php7.0-gd libapache2-mod-php7.0
 echo "INFO: Installing php7... Done."
 
 # Install sendmail
@@ -46,37 +47,36 @@ echo "INFO: Creating WordPress DB..."
 mysql -u "root" -p"vagrant" < "/vagrant/provision/config/db.sql"
 echo "INFO: Creating WordPress DB... Done"
 
-# # If phpmyadmin does not exist
-# if [ ! -f /etc/phpmyadmin/config.inc.php ];
-# then
-#     # Used debconf-get-selections to find out what questions will be asked
-#     # This command needs debconf-utils
+# If phpmyadmin does not exist
+if [ ! -f /usr/share/phpmyadmin/config.inc.php ]; then
+    # Used debconf-get-selections to find out what questions will be asked
+    # This command needs debconf-utils
 
-#     # Handy for debugging. clear answers phpmyadmin: echo PURGE | debconf-communicate phpmyadmin
+    # Handy for debugging. clear answers phpmyadmin: echo PURGE | debconf-communicate phpmyadmin
 
-#     echo "INFO: Installing phpmyadmin..."
+    echo "INFO: Installing phpmyadmin..."
 
-#     echo 'phpmyadmin phpmyadmin/dbconfig-install boolean false' | debconf-set-selections
-#     echo 'phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2' | debconf-set-selections
+    echo 'phpmyadmin phpmyadmin/dbconfig-install boolean false' | debconf-set-selections
+    echo 'phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2' | debconf-set-selections
 
-#     echo 'phpmyadmin phpmyadmin/app-password-confirm password vagrant' | debconf-set-selections
-#     echo 'phpmyadmin phpmyadmin/mysql/admin-pass password vagrant' | debconf-set-selections
-#     echo 'phpmyadmin phpmyadmin/password-confirm password vagrant' | debconf-set-selections
-#     echo 'phpmyadmin phpmyadmin/setup-password password vagrant' | debconf-set-selections
-#     echo 'phpmyadmin phpmyadmin/database-type select mysql' | debconf-set-selections
-#     echo 'phpmyadmin phpmyadmin/mysql/app-pass password vagrant' | debconf-set-selections
+    echo 'phpmyadmin phpmyadmin/app-password-confirm password vagrant' | debconf-set-selections
+    echo 'phpmyadmin phpmyadmin/mysql/admin-pass password vagrant' | debconf-set-selections
+    echo 'phpmyadmin phpmyadmin/password-confirm password vagrant' | debconf-set-selections
+    echo 'phpmyadmin phpmyadmin/setup-password password vagrant' | debconf-set-selections
+    echo 'phpmyadmin phpmyadmin/database-type select mysql' | debconf-set-selections
+    echo 'phpmyadmin phpmyadmin/mysql/app-pass password vagrant' | debconf-set-selections
 
-#     echo 'dbconfig-common dbconfig-common/mysql/app-pass password vagrant' | debconf-set-selections
-#     echo 'dbconfig-common dbconfig-common/mysql/app-pass password' | debconf-set-selections
-#     echo 'dbconfig-common dbconfig-common/password-confirm password vagrant' | debconf-set-selections
-#     echo 'dbconfig-common dbconfig-common/app-password-confirm password vagrant' | debconf-set-selections
-#     echo 'dbconfig-common dbconfig-common/app-password-confirm password vagrant' | debconf-set-selections
-#     echo 'dbconfig-common dbconfig-common/password-confirm password vagrant' | debconf-set-selections
+    echo 'dbconfig-common dbconfig-common/mysql/app-pass password vagrant' | debconf-set-selections
+    echo 'dbconfig-common dbconfig-common/mysql/app-pass password' | debconf-set-selections
+    echo 'dbconfig-common dbconfig-common/password-confirm password vagrant' | debconf-set-selections
+    echo 'dbconfig-common dbconfig-common/app-password-confirm password vagrant' | debconf-set-selections
+    echo 'dbconfig-common dbconfig-common/app-password-confirm password vagrant' | debconf-set-selections
+    echo 'dbconfig-common dbconfig-common/password-confirm password vagrant' | debconf-set-selections
 
-#     apt-get install -y phpmyadmin
+    apt-get install -y phpmyadmin
 
-#     echo "INFO: Installing phpmyadmin... Done."
-# fi
+    echo "INFO: Installing phpmyadmin... Done."
+fi
 
 # Install WP-CLI
 if [[ ! -d "/vagrant/tools/wp-cli.phar" ]]; then
