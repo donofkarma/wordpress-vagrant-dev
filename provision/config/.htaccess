@@ -102,14 +102,14 @@ Options -Indexes
 </IfModule>
 # END GZIP
 # DEFLATE compression
-#<IfModule mod_deflate.c>
-#    # Set compression for: html,txt,xml,js,css
-#    AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/javascript text/css application/x-javascript application/javascript
-#    # Deactivate compression for buggy browsers
-#    BrowserMatch ^Mozilla/4 gzip-only-text/html
-#    BrowserMatch ^Mozilla/4.0[678] no-gzip
-#    BrowserMatch bMSIE !no-gzip !gzip-only-text/html
-#    # Set header information for proxies
-#    Header append Vary User-Agent
-#</IfModule>
+<IfModule mod_deflate.c>
+    # Set compression for: html,txt,xml,js,css
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/javascript text/css application/x-javascript application/javascript
+    # Deactivate compression for buggy browsers
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4.0[678] no-gzip
+    BrowserMatch bMSIE !no-gzip !gzip-only-text/html
+    # Set header information for proxies
+    Header append Vary User-Agent
+</IfModule>
 # END DEFLATE

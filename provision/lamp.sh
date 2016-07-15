@@ -16,9 +16,10 @@ apt-get install -y apache2
 echo "INFO: Installing apache2... Done."
 
 # Enable mod_rewrite
-echo "INFO: Enabling mod_rewrite..."
+echo "INFO: Enabling additional Apache modules..."
 a2enmod rewrite
-echo "INFO: Enabling mod_rewrite... Done."
+a2enmod deflate
+echo "INFO: Enabling additional Apache modules... Done."
 
 # Update vhosts file
 echo "INFO: Updating vhosts..."
