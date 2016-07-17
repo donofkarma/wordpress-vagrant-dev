@@ -1,4 +1,4 @@
-WordPress Vagrant Baseline v1.0.0
+WordPress Vagrant Baseline v1.2.1
 ====================
 
 A WordPress development environment in Vagrant. Feel free to fork/clone/use it if you want to.
@@ -61,4 +61,3 @@ To-do
 ---------------------
 
 * Add a more secure default password
-* Debug phpmyadmin - not working with PHP7
