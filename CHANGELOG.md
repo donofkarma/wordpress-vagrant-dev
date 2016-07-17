@@ -1,6 +1,10 @@
 Changelog
 ---------------------
 
+### 1.2.1
+- .htaccess update
+- Making sure mod_deflate is turned on
+
 ### 1.2.0
 - Adding sendmail for email capability
 - Adding phpMyAdmin for easy DB editing
